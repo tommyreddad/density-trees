@@ -1,0 +1,93 @@
+\section{Discussion}\seclabel{conclusion}
+
+It seems likely, given our results on the idealized tree-based
+estimators from \secref{ideal} and \secref{convex}, that the greedy
+tree-based estimators also behave well. In particular, we suspect that
+our greedy tree-based estimators are minimax-optimal within
+logarithmic factors. We leave this open to future work.
+
+It is also often desirable for nonparametric estimators to be
+adaptive, in the sense that they attain the optimal minimax rate
+without depending on some of the important features of the
+nonparametric class in question. In some cases, an adaptive density
+estimate can be constructed by first estimating these features, and
+then building a density estimate assuming the estimated features. For
+example, in \cite{birge-risk}, an adapative estimate for
+non-increasing densities is developed by first estimating the size of
+the support, and plugging this estimated support size into a
+non-adaptive estimate. We expect that in this manner, our method can
+be made adaptive.
+
+The techniques of this paper seem to naturally extend to higher
+dimensions. Take, for instance, the class of block-decreasing
+densities, whose minimax rate was identified by Biau and
+Devroye~\cite{block}. This is the class of densities supported on
+$[0, 1]^d$ bounded by some constant $B \ge 0$, such that each density
+is non-increasing in each coordinate if all other coordinates are held
+fixed. The discrete version of this class has each density supported
+on $\{1, \dots, k\}^d$, with the monotonicity constraint. In order to
+estimate such a density, one could devise an oriented binary splitting
+rule analogous to \eqref{id-splitting-rule} and carry out a similar
+analysis as performed in \secref{ideal}.
+%In this case, we expect there
+%again to be three regimes for the minimax risk:
+%\begin{itemize}
+%\item when $n \ll k^d$, the risk is constant;
+%\item when $n \gg k^d$, the risk is proportional to $\sqrt{k^d/n}$, as
+%  attained by the histogram estimate with bins of size $1$ for each
+%  element of $\{1, \dots, k\}^d$, and;
+%\item in an intermediate regime, the risk is some nonparametric rate.
+%\end{itemize}
+
+Furthermore, we expect that there are many other classes of
+one-dimensional densities whose optimal minimax rate could be
+identified using our approach, like the class of $\ell$-monotone
+densities on $\{1, \dots, k\}$, where a function $f$ is called
+\emph{$\ell$-monotone} if it is non-negative and if $(-1)^j f^{(j)}$
+is non-increasing and convex for all $j \in \{0, \dots, \ell - 2\}$ if
+$\ell \ge 2$, and where $f$ is non-negative and non-increasing if
+$\ell = 1$. This paper tackles the cases of $\ell = 1$ and $\ell =
+2$. Write $\sF_{k, \ell}$ for the class of $\ell$-monotone densities
+on $\{1, \dots, k\}$. See Balabdaoui and Wellner~\cite{k-monotone,
+  k-monotone-2} for texts concerning the density estimation of
+$\ell$-monotone densities. It seems likely that our method could be
+applied to prove the following conjecture.
+\begin{conj}
+Let $f \colon \N \times \N \times \N \times \R \to \R$ be
+\[
+ f(n, k, \ell, \alpha) = \left\{
+                         \begin{array}{ll}
+                                \sqrt{k/n} & \mbox{if $2 \le k \le \alpha n^{\frac{1}{2\ell + 1}}$,} \\
+                                {\left(\frac{\log_\alpha (k/n^{\frac{1}{2\ell + 1}})}{n}\right)}^{\frac{\ell}{2\ell + 1}} & \mbox{if $\alpha n^{\frac{1}{2\ell + 1}} \le k \le n^{\frac{1}{2\ell + 1}} \alpha^n$,} \\
+                                1 & \mbox{if $n^{\frac{1}{2\ell + 1}} \alpha^n \le k.$}
+                         \end{array}\right.
+\]
+Let $\ell \ge 1$ be fixed. There are constants $\alpha, C, n_0 \ge 1$
+depending only on $\ell$ such that, for $n \ge n_0$,
+\[
+  \frac{1}{C} \le \frac{\sR_n(\sF_{k, \ell})}{f(n, k, \ell, \alpha)} \le C .
+\]
+\end{conj}
+The main obstacle in proving the above would be the development of
+good local estimates for $\ell$-monotone densities, in the same flavor
+as \propref{id-tv} and \propref{conv-id-tv}.
+
+Our approach also likely can be applied to the class of all
+log-concave discrete distributions, where we recall that $f : \N \to
+[0, 1]$ is called \emph{log-concave} if
+\[
+  f(x) f(x + 2) \le f(x + 1)^2 , \quad \text{for all } x \ge 1 .
+\]
+See \cite{kane-logconcave-up, samworth-lower, samworth-survey} for a
+small selection of works on the density estimation of $d$-dimensional
+log-concave continuous densities. The optimal Hellinger distance
+minimax rate (within logarithmic factors) for this class was recently
+obtained by Dagan and Kur~\cite{dagan}, who showed that it is attained
+by the maximum-likelihood estimate. There remains a small gap between
+the best known upper and lower bounds in the TV-distance minimax rate
+as of the time of writing.
+
+\section*{Acknowledgments}
+
+We would like to thank the three reviewers and an associate editor for
+their helpful comments and suggestions.

@@ -1,0 +1,70 @@
+%\documentclass[ejs]{imsart}
+\documentclass[noinfoline]{imsart}
+
+\startlocaldefs
+\usepackage{tommy}
+\renewcommand{\tilde}[1]{\widetilde{#1}}
+\endlocaldefs
+
+\begin{document}
+
+\begin{frontmatter}
+\title{Discrete minimax estimation with trees}
+\runtitle{Discrete minimax estimation with trees}
+\begin{aug}
+  \author{\fnms{Luc} \snm{Devroye}\ead[label=e1]{lucdevroye@gmail.com}\thanksref{t1}}
+  \and
+  \author{\fnms{Tommy} \snm{Reddad}\ead[label=e2]{tommy.reddad@gmail.com}\thanksref{t2}}
+  \affiliation{McGill University}
+
+  \thankstext{t1}{Supported by NSERC Grant A3456.}
+  \thankstext{t2}{Supported by NSERC PGS D scholarship 396164433.}
+  
+  \address{School of Computer Science \\
+    McGill University \\
+    3480 University Street \\
+    Montr\'{e}al, Qu\'{e}bec, Canada \\
+    H3A 2A7 \\
+    \printead{e1,e2}
+    }
+  \runauthor{L. Devroye and T. Reddad}
+\end{aug}
+
+\begin{abstract}
+  We propose a simple recursive data-based partitioning scheme which
+  produces piecewise-constant or piecewise-linear density estimates on
+  intervals, and show how this scheme can determine the optimal $L_1$
+  minimax rate for some discrete nonparametric classes.
+\end{abstract}
+
+\begin{keyword}[class=MSC]
+\kwd{60G07}
+\end{keyword}
+
+\begin{keyword}
+\kwd{density estimation}
+\kwd{minimax theory}
+\kwd{discrete probability distribution}
+\kwd{Vapnik-Chervonenkis dimension}
+\kwd{monotone density}
+\kwd{convex density}
+\kwd{histogram}
+\end{keyword}
+
+\tableofcontents
+
+\end{frontmatter}
+
+\input{introduction}
+\input{summary}
+\input{nonincreasing}
+\input{convex}
+\input{discussion}
+
+\appendix
+\input{appendix}
+
+\bibliographystyle{imsart-number}
+\bibliography{main}
+
+\end{document}

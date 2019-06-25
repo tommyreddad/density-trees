@@ -1,0 +1,404 @@
+\section{Lower bounds}\applabel{app-1}
+
+\begin{lem}[Assouad's Lemma~\cite{assouad, comb-methods}]\lemlabel{assouad}
+  Let $\sF$ be a class of densities supported on the set $\sX$. Let
+  $A_0, A_1, \dots, A_r$ be a partition of $\sX$, and
+  $g_{ij} \colon A_i \to \R$ for $0 \le i \le r$ and $j \in \{0, 1\}$
+  be some collection of functions. For
+  $\theta = (\theta_1, \dots, \theta_r) \in \{0, 1\}^r$, define the
+  function $f_\theta \colon \sX \to \R$ by
+  \[
+    f_\theta(x) = \left\{\begin{array}{ll}
+                           g_{00}(x) & \mbox{if $x \in A_0$,} \\
+                           g_{i \theta_i}(x) & \mbox{if $x \in A_i$,}
+                    \end{array} \right.
+  \]
+  such that each $f_\theta$ is a density on $\sX$. Let
+  $\zeta_i \in \{0, 1\}^n$ agree with $\theta$ on all bits except for
+  the $i$-th bit. Then, suppose that
+  \[
+    0 < \beta \le \inf_\theta \inf_{1 \le i \le r} \int \sqrt{f_\theta f_{\zeta_i}} ,
+  \]
+  and
+  \[
+    0 < \alpha \le \inf_\theta \inf_{1 \le i \le r} \int_{A_i} |f_\theta - f_{\zeta_i}| .
+  \]
+  Let $\sH$ be the hypercube of densities
+  \[
+    \sH = \{f_\theta \colon \theta \in \{0, 1\}^r\} .
+  \]
+  If $\sH \subseteq \sF$, then
+  \[
+    \sR_n(\sF) \ge \frac{r \alpha}{4} \left(1 - \sqrt{2 n (1 - \beta)}\right) .
+  \]
+\end{lem}
+
+\subsection{Proof of the lower bound in \thmref{monotone-result}.}\applabel{monotone-lower}
+
+Suppose first that $e^8 n^{1/3} \le k \le n^{1/3} e^n$. Let
+$A_1, \dots, A_r$ be consecutive intervals of even cardinality,
+starting from the leftmost atom $1$. Split each $A_i$ in two equal
+parts, $A_i'$ and $A_i''$. Let $\eps \in (0, 1/\sqrt{2})$, and set
+\begin{align*}
+  g_{i 0}(x) &= \left\{\begin{array}{ll}
+                        \frac{1 + \eps}{r |A_i|} & \mbox{if $x \in A_i'$,} \\
+                        \frac{1 - \eps}{r |A_i|} & \mbox{if $x \in A_i''$,}
+                      \end{array} \right. \\
+  g_{i 1}(x) &= \frac{1}{r |A_i|} .
+\end{align*}
+It is clear that each $f_\theta$ is a density. In order for each
+$f_\theta$ to be monotone, we require that
+\[
+  \frac{1 - \eps}{|A_i|} \ge \frac{1 + \eps}{|A_{i + 1}|} ,
+\]
+and in particular
+\[
+  |A_i| \ge |A_1| \left(\frac{1 + \eps}{1 - \eps}\right)^{i - 1} .
+\]
+Pick $|A_1| = 2$. Since $\log (1 + \eps) - \log (1 - \eps) \le 4 \eps$
+for $\eps \in (0, 1/\sqrt{2})$, it suffices to take
+\[
+  |A_i| \ge a_i = 2 e^{4 \eps(i - 1)} .
+\]
+Let $|A_i|$ be the smallest even integer at least equal to $a_i$, so
+that $a_i \le |A_i| \le a_i + 2$, and thus
+\[
+  \sum_{i = 1}^r |A_i| \le 2r + \frac{2 e^{4\eps r}}{e^{4\eps} - 1} \le 2r + \frac{e^{4 \eps r}}{2 \eps} .
+\]
+Since the support of our densities is $\{1, \dots, k\}$, then we ask
+that this last upper bound not exceed $k$. We can guarantee this in
+particular with a choice of $r$ and $\eps$ for which
+\begin{equation}
+  2r \le \frac{k}{2}, \quad \text{and} \quad \frac{e^{4 \eps r}}{2\eps} \le \frac{k}{2} . \eqlabel{monotone-cond}
+\end{equation}
+Fix $1 \le i \le r$. Then,
+\begin{align*}
+  \int \left(\sqrt{f_\theta} - \sqrt{f_{\zeta_i}}\right)^2 &= \sum_{x \in A_i} \left(\sqrt{f_\theta(x)} - \sqrt{f_{\zeta_i}(x)}\right)^2 \\
+                                                &= \frac{2}{r} - \frac{1}{r}\left(\sqrt{1 + \eps} + \sqrt{1 - \eps}\right) \\
+                                                &\le \frac{\eps^2}{r} ,
+\end{align*}
+so
+\begin{align*}
+  \int \sqrt{f_\theta f_{\zeta_i}} &= 1 - \frac{1}{2} \int \left(\sqrt{f_\theta} - \sqrt{f_{\zeta_i}}\right)^2 \\
+                                   &\ge 1 - \frac{\eps^2}{2r} .
+\end{align*}
+On the other hand,
+\[
+  \int_{A_i} |f_\theta - f_{\zeta_i}| = \sum_{x \in A_i} |f_\theta(x) - f_{\zeta_i}(x)| = \frac{\eps}{r} .
+\]
+Now pick
+\[
+  \eps = \frac{1}{4} \left(\frac{\log(k/n^{1/3})}{n}\right)^{1/3} ,
+\]
+and $r$ for which
+\[
+  \sqrt{\frac{n \eps^2}{r}} \le \frac{1}{2} ,
+\]
+or equivalently,
+\[
+  r \ge \frac{1}{4} \left(n \log^2(k/n^{1/3})\right)^{1/3} .
+\]
+Note that $k \le n^{1/3} e^n$ now implies that
+$\eps \in (0, 1/\sqrt{2})$. With this choice, \lemref{assouad} implies
+that
+\begin{equation}
+  \sR_n(\sF_k) \ge \frac{\eps}{4} \left(1 - \sqrt{\frac{n \eps^2}{r}} \right) \ge \frac{1}{32} \left( \frac{\log (k/n^{1/3})}{n} \right)^{1/3} . \eqlabel{monotone-lb-done}
+\end{equation}
+So we need only verify that these choices of $\eps$ and $r$ are
+compatible with \eqref{monotone-cond}. Since $k \ge e^8 n^{1/3}$, then
+there is an integer choice of $r$ in the range
+\[
+  \frac{1}{4} \left(n \log^2 (k/n^{1/3})\right)^{1/3} \le r \le \frac{1}{2} \left(n \log^2 (k/n^{1/3})\right)^{1/3} .
+\]
+In particular, we can verify that
+\begin{align*}
+  2r \le \left(n \log^2 (k/n^{1/3})\right)^{1/3} \le \frac{k}{2} ,
+\end{align*}
+since $2 \log^{2/3} x \le x$ for all $x \ge 0$. Moreover, since
+$k \ge e^8 n^{1/3}$, then $\eps \ge \frac{1}{2 n^{1/3}}$, so that
+\begin{align*}
+  \frac{e^{4 \eps r}}{2 \eps} &\le n^{1/3} e^{4 \eps r} \\
+                              &\le n^{1/3} e^{\frac{1}{2} \log (k/n^{1/3})} \\
+                              &= n^{1/3} \sqrt{\frac{k}{n^{1/3}}} \\
+                              &\le \frac{k}{2} ,
+\end{align*}
+where this last inequality holds since $\sqrt{x} \le x/2$ for all
+$x \ge e^8$, so that \eqref{monotone-lb-done} is proved.
+
+When $k \ge n^{1/3} e^n$, we argue by inclusion that
+\[
+  \sR_n(\sF_k) \ge \inf_{k \ge n^{1/3} e^n} \sR_n(\sF_k) \ge \frac{1}{32} .
+\]
+
+The only remaining case is $k \le e^8 n^{1/3}$. In this case, we offer
+a different construction. Now, each $A_i$ will have size $2$ for
+$1 \le i \le r$, where $r = \floor{k/2}$. Fix $a, b \in \R$ to be
+specified later, and set
+\begin{align*}
+  g_{i 0}(x) &= \left\{\begin{array}{ll}
+                        a - b(2i - 1) & \mbox{if $x \in A_i'$,} \\
+                        a - b(2i + 1) & \mbox{if $x \in A_i''$,}
+                      \end{array} \right. \\
+  g_{i 1}(x) &= a - 2 b i ,
+\end{align*}
+We insist that
+\[
+  a - b (2r + 1) = \frac{1 - \eps}{2r}
+\]
+for some $0 \le \eps \le 1$. Since each $f_\theta$ must be a density,
+we need that
+\[
+  \sum_{i = 1}^r 2(a - 2 bi) = 1 .
+\]
+Both of these conditions will be satisfied if we pick
+\[
+  b = \frac{\eps}{2 r^2}, \quad \text{and} \quad a = b + \frac{1 + \eps}{2r} ,
+\]
+Furthermore, the largest probability of an atom here is
+\[
+  a - b = \frac{1 + \eps}{2r} \le 1 ,
+\]
+for $k \ge 2$. Then, for $1 \le i \le r$, we can compute
+\begin{align*}
+  \int \left(\sqrt{f_\theta} - \sqrt{f_{\zeta_i}}\right)^2 &\le \frac{2 b^2}{a - 2 bi} \\
+                                                           &\le \frac{\eps^2}{r^3 (1 - \eps)} ,
+\end{align*}
+so
+\[
+  \int \sqrt{f_\theta f_{\zeta_i}} \ge 1 - \frac{\eps^2}{2 r^3(1 - \eps)} .
+\]
+and
+\[
+  \int_{A_i} |f_\theta - f_{\zeta_i}| = 2b = \frac{\eps}{r^2} .
+\]
+Pick $\eps = e^{-12} r \sqrt{k/n}$. Then, since
+$2 \le k \le e^8 n^{1/3}$ and $r = \floor{k/2} \ge k/3$, then
+$\eps \le 1/2$, and
+\[
+  \sqrt{\frac{n \eps^2}{r^3 (1 - \eps)}} \le \frac{1}{2} ,
+\]
+so that
+\[
+  \pushQED{\qed}
+  \sR_n(\sF_k) \ge \frac{\eps}{4 r} \left(1 - \sqrt{\frac{n \eps^2}{r^3 (1 - \eps)}}\right) \ge \frac{1}{8 e^{12}} \sqrt{k/n} . \qedhere
+  \popQED
+\]
+
+\subsection{Proof of the lower bound in \thmref{convex-result}.}\applabel{convex-lower}
+
+Let $A_1, \dots, A_r$ be the partition in \lemref{assouad}, for an
+integer $r \ge 1$ to be specified. Let $j_i$ be the smallest element
+of $A_i$, and suppose that each $|A_i|$ is chosen to be a positive
+multiple of $3$. We will define the functions $f_\theta$ based on
+parameters $\beta_i, \Delta_i \in \R$, to be specified. Let $g_{i0}$
+linearly interpolate between the points
+\[
+  (j_i, \beta_i), \quad \text{and} \quad \left(j_i + \frac{|A_i|}{3}, \frac{\beta_{i + 1} - \beta_i}{3} + \beta_i - \Delta_i \right) ,
+\]
+on $\{j_i, j_i + 1, \dots, j_i + |A_i|/3 - 1\}$,
+and between the points
+\[
+  \left( j_i + \frac{|A_i|}{3}, \frac{\beta_{i + 1} - \beta_i}{3} + \beta_i - \Delta_i \right), \quad \text{and} \quad (j_i + |A_i|, \beta_{i + 1}) 
+\]
+on $\{j_i + |A_i|/3, \dots, j_i + |A_i| - 1\}$. Let $g_{i1}$ linearly
+interpolate between the points
+\[
+  (j_i, \beta_i), \quad \text{and} \quad \left(j_i + \frac{2 |A_i|}{3}, \frac{2 (\beta_{i + 1} - \beta_i)}{3} + \beta_i - \Delta_i \right)
+\]
+on $\{j_i, j_i + 1, \dots, j_i + 2|A_i|/3 - 1\}$, and
+between the points
+\[
+  \left(j_i + \frac{2|A_i|}{3}, \frac{2 (\beta_{i + 1} - \beta_i)}{3} + \beta_i - \Delta_i \right), \quad \text{and} \quad (j_i + |A_i|, \beta_{i + 1})
+\]
+on $\{j_i + 2|A_i|/3, \dots, j_i + |A_i| - 1\}$.  Then, each
+$f_\theta$ will be nonincreasing as long as
+$\beta_i \ge \beta_{i + 1}$ for each $1 \le i \le r$, and
+\begin{equation}
+  \frac{2 (\beta_{i + 1} - \beta_i)}{3} + \beta_i - \Delta_i \ge \beta_{i + 1} \iff \frac{\beta_i - \beta_{i + 1}}{3} \ge \Delta_i . \eqlabel{mono-cond}
+\end{equation}
+Each $f_\theta$ will be convex as long as the largest slope on $A_i$
+is at most the smallest slope on $A_{i + 1}$ for each $1 \le i \le
+r$. Equivalently,
+\begin{equation}
+  \frac{|A_{i + 1}|}{|A_i|} \ge \frac{ \frac{\beta_{i + 1} - \beta_{i + 2}}{3} + \Delta_{i + 1}}{\frac{\beta_i - \beta_{i + 1}}{3} - \Delta_i} . \eqlabel{conv-cond}
+\end{equation}
+Now, pick $\beta_i = (1 - \eps)^{i - 1} \beta$ for some
+$\beta \in \R$, $\eps \in (0, 1)$ to be specified, and
+\[
+  \Delta_i = \frac{(\beta_i - \beta_{i + 1}) \eps }{3} = \frac{ \beta \eps^2 (1 - \eps)^{i - 1}}{6} ,
+\]
+for which \eqref{mono-cond} is immediately satisfied. The condition
+\eqref{conv-cond} is then equivalent to
+\[
+  \frac{|A_{i + 1}|}{|A_i|} \ge 1 + \eps .
+\]
+Pick $|A_1| = 3$. It is sufficient to make the choice
+\[
+  |A_i| \ge a_i = \frac{3}{(1 - \eps)^{i - 1}} .
+\]
+Let $|A_i|$ be the smallest integer multiple of $3$ at least as large
+as $a_i$, so that $a_i \le |A_i| \le a_i + 3$. If $\eps \le 1/2$, then
+\[
+  \sum_{i = 1}^r |A_i| \le 3r + \frac{3 e^{2 \eps r}}{2 \eps} .
+\]
+Since the support of our densities is $\{1, \dots, k\}$, this upper
+bound must not exceed $k$, so we impose that
+\begin{equation}
+  3r \le \frac{k}{2} , \quad \text{and} \quad \frac{ 3 e^{2 \eps r}}{2 \eps} \le \frac{k}{2} . \eqlabel{assouad-conv-conds}
+\end{equation}
+We must tune $\beta$ in order for each $f_\theta$ to be a density. By
+monotonicity, we must have
+\[
+  1 \le \sum_{i = 1}^r \beta_i |A_i| \le 6 \beta r ,
+\]
+and
+\[
+  1 \ge \sum_{i = 1}^r \beta_{i + 1} |A_i| \ge 3(1 - \eps) \beta r ,
+\]
+so there is a choice of $\beta$ where
+\[
+  \frac{1}{6 r} \le \beta \le \frac{2}{3 r} ,
+\]
+as long as $\eps \le 1/2$. Now, fix $1 \le i \le r$. Then,
+\[
+  \int_{A_i} |f_\theta - f_{\zeta_i}| \ge \frac{|A_i| \Delta_i}{12} \ge \frac{\eps^2 \beta}{12} \ge \frac{\eps^2}{72 r} ,
+\]
+and
+\begin{align*}
+  \int (\sqrt{f_\theta} - \sqrt{f_{\zeta_i}})^2 &= \int_{A_i} \frac{(f_\theta - f_{\zeta_i})^2}{(\sqrt{f_{\theta}} + \sqrt{f_{\zeta_i}})^2} \\
+                                                      &\le \frac{1}{4 \beta_{i + 1}} \int_{A_i} (f_\theta - f_{\zeta_i})^2 \\
+                                                      &\le \frac{|A_i| \Delta_i^2}{4 \beta_{i + 1}} \\
+                                                      &\le \frac{\left(3 + \frac{3}{(1 - \eps)^{i - 1}} \right) \left( \frac{\beta \eps^2 (1 - \eps)^{i - 1}}{3} \right)^2}{4 \beta (1 - \eps)^i} \\
+                                                &\le \frac{2 \eps^4}{9 r} ,
+\end{align*}
+as long as $\eps \le 1/2$, whence
+\[
+  \int \sqrt{f_\theta f_{\zeta_i}} \ge 1 - \frac{\eps^4}{9 r} .
+\]
+Now, pick
+\[
+  \eps = \frac{1}{2} \left(\frac{\log (k/n^{1/5})}{n} \right)^{1/5} ,
+\]
+and $r$ for which
+\[
+  \sqrt{\frac{2 n \eps^4}{9r}} \le \frac{1}{2} ,
+\]
+or equivalently,
+\[
+  r \ge \frac{1}{18} n^{1/5} \log^{4/5} (k/n^{1/5}) .
+\]
+Note that $k \le n^{1/5} e^n$ now implies that $\eps \le 1/2$. With
+this choice, \lemref{assouad} has
+\begin{equation}
+  \sR_n(\sG_k) \ge \frac{\eps^2}{288} \left(1 - \sqrt{\frac{2n \eps^4}{9r}} \right) \ge \frac{1}{1152} \left( \frac{\log (k/n^{1/5})}{n} \right)^{2/5} , \eqlabel{final-conv-lower}
+\end{equation}
+so it remains to verify that our choices of $\eps$ and $r$ are
+compatible with \eqref{assouad-conv-conds}. Since $k \ge e^{40} n^{1/5}$,
+then there is an integer choice of $r$ in the range
+\[
+  \frac{1}{18} n^{1/5} \log^{4/5} (k/n^{1/5}) \le r \le \frac{1}{9} n^{1/5} \log^{4/5} (k/n^{1/5}) .
+\]
+In particular, we can verify that
+\[
+  3r \le \frac{1}{3} n^{1/5} \log^{4/5} (k/n^{1/5}) \le \frac{k}{2} ,
+\]
+since $(2/3) \log^{4/5} x \le x$ for all $x \ge 0$. Moreover, since
+$k \ge e^{40} n^{1/5}$, then $\eps \ge 1/n^{1/5}$, so that
+\begin{align*}
+  \frac{3 e^{2 \eps r}}{2 \eps} &\le \frac{3 n^{1/5} e^{2 \eps r}}{2} \\
+                                &\le \frac{3 n^{1/5} e^{\frac{1}{9} \log (k/n^{1/5})}}{2} \\
+                                &= \frac{3 n^{1/5}}{2} \left(\frac{k}{n^{1/5}}\right)^{1/9} \\
+                                &\le \frac{k}{2} ,
+\end{align*}
+since $x^{1/9} \le x/3$ for all $x \ge e^{40}$, so that
+\eqref{final-conv-lower} is proved.
+
+When $k \ge n^{1/5} e^n$, we argue by inclusion that
+\[
+  \sR_n(\sG_k) \ge \inf_{k \ge n^{1/5} e^n} \sR_n(\sG_k) \ge \frac{1}{1152} .
+\]
+
+It remains to prove the case $k \le e^{40} n^{1/5}$. Observe that
+$\sG_2 = \sF_2$, so the lower bound for $k = 2$ follows from
+\appref{monotone-lower}, so we assume that $k \ge 3$. Now, each $A_i$
+will have size $3$ for $1 \le i \le r$, where $r = \floor{k/3}$. Fix
+$a, b \in \R$ to be specified later, and set
+\begin{align*}
+  g_{i0}(j_i) &= \beta_i  \\
+  g_{i0}(j_i + 1) &= \frac{2 \beta_i + \beta_{i + 1}}{3} - \Delta_i \\
+  g_{i0}(j_i + 2) &= \frac{\beta_i + 2 \beta_{i + 1}}{3} - \frac{\Delta_i}{2}
+\end{align*}
+and
+\begin{align*}
+  g_{i1}(j_i) &= \beta_i \\
+  g_{i1}(j_i + 1) &= \frac{2 \beta_i + \beta_{i + 1}}{3} - \frac{\Delta_i}{2}  \\
+  g_{i1}(j_i + 2) &= \frac{\beta_i + 2 \beta_{i + 1}}{3} - \Delta_i .
+\end{align*}
+Each $f_\theta$ will be non-increasing as long as
+$\beta_i \ge \beta_{i + 1}$, and
+\[
+  \Delta_i \le \frac{\beta_i - \beta_{i + 1}}{3} ,
+\]
+for each $1 \le i \le r$. Convexity will follow if
+\[
+  \beta_{i + 1} - \left( \frac{\beta_i + 2 \beta_{i + 1}}{3} - \Delta_i \right) \le \left( \frac{2 \beta_{i + 1} + \beta_{i + 2}}{3} - \Delta_{i + 1}\right) - \beta_{i + 1} ,
+\]
+or equivalently,
+\[
+  \frac{\beta_{i} - \beta_{i + 1}}{3} - \Delta_i \ge \frac{\beta_{i + 1} - \beta_{i + 2}}{3} + \Delta_{i + 1} .
+\]
+We need also that $\beta_1 \le 1$, $\beta_{r + 1} \ge 0$, and
+\[
+  \sum_{i = 1}^r \left(2 \beta_i + \beta_{i + 1} - \frac{3 \Delta_i}{2}\right) = 1 .
+\]
+Take $\beta_{i + 1} = \beta_i - 3 \Delta_i - \alpha (r - i)$ for
+$\alpha \ge 0$ to be specified.. Monotonicity follows, and convexity
+will follow if
+\begin{align*}
+  \frac{\alpha (r - i)}{3}  &\ge 2 \Delta_{i + 1} + \frac{\alpha (r - i - 1)}{3} \\
+  \iff  \Delta_{i + 1} &\le \frac{\alpha}{6} .
+\end{align*}
+So take each $\Delta_i = \alpha/6$. Then,
+\[
+  \beta_i = \beta_1 - \frac{\alpha (i - 1)}{2} -  \alpha \sum_{j = 1}^{i - 1} (r - i ) ,
+\]
+and in particular,
+\[
+  \beta_{r + 1} = \beta_1 - \frac{\alpha r}{2} - \frac{\alpha (r - 1) r}{2} = \beta_1 - \frac{\alpha r^2}{2} .
+\]
+Take $\alpha = \eps/r^3$ for some $0 \le \eps \le 1$, whence
+\[
+  \beta_{r + 1} = \beta_1 - \frac{\eps}{2r} .
+\]
+By monotonicity,
+\[
+  1 \le \sum_{i = 1}^r 3\beta_i \le 3 r \beta_1 ,
+\]
+and
+\[
+  1 \ge \sum_{i = 1}^r 3 \beta_{i + 1} \ge 3 r \left( \beta_1 - \frac{\eps}{2r} \right) \ge 3r \beta_1 - \frac{3 \eps }{2} ,
+\]
+so that the right choice of $\beta_1$ satisfies
+\[
+  \frac{1}{3r} \le \beta_1 \le \frac{5}{6r} .
+\]
+Fix $1 \le i \le r$. Then,
+\begin{align*}
+  \int_{A_i} |f_\theta - f_{\zeta_i}| = \Delta_i = \frac{\eps}{6 r^3} ,
+\end{align*}
+and if $\eps \le 1/2$,
+\begin{align*}
+  \int_{A_i} \left(\sqrt{f_\theta} - \sqrt{f_{\zeta_i}}\right)^2 \le \frac{\Delta_i^2}{8 \beta_{i + 1}} \le \frac{\eps^2}{24 r^5} .
+\end{align*}
+Finally, pick $\eps = e^{-100} r^2 \sqrt{k/n}$. Since
+$k \le e^{40} n^{1/5}$ and $r = \floor{k/3} \ge k/6$, then
+$\eps \le 1/2$, and
+\[
+  \sqrt{\frac{n \eps^2}{24 r^5}} \le \frac{1}{2} ,
+\]
+so by \lemref{assouad},
+\[
+  \pushQED{\qed}
+  \sR_n(\sG_k) \ge \frac{\eps}{24 r^2} \left(1 - \sqrt{\frac{n \eps^2}{24 r^5}}\right) \ge \frac{1}{48 e^{100}} \sqrt{k/n} . \qedhere
+  \popQED
+\]

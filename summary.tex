@@ -1,0 +1,216 @@
+\section{Preliminaries and summary}
+
+Let $\sF$ be a given class of probability densities with respect to a
+base measure $\mu$ on the measurable space $(\sX, \Sigma)$, and let
+$f \in \sF$. If $X$ is a random variable taking values in
+$(\sX, \Sigma)$, we write $X \sim f$ to mean that
+\[
+  \Pr\{X \in A\} = \int_A f \dif \mu , \qquad \text{for each
+    $A \in \Sigma$.}
+\]
+The notation $X_1, \dots, X_n \iid f$ means that $X_i \sim f$ for each
+$1 \le i \le n$, and that $X_1, \dots, X_n$ are mutually independent.
+
+Typically in density estimation, either $\sX = \R^d$, $\Sigma$ is the
+Borel $\sigma$-algebra, and $\mu$ is the Lebesgue measure, or $\sX$ is
+countable, $\Sigma = \sP(\sX)$, and $\mu$ is the counting measure. The
+former case is referred to as the \emph{continuous setting}, and the
+latter case as the \emph{discrete setting}, where $f$ is more often
+called a \emph{probability mass function} in the
+literature. Throughout this paper, we will only be concerned with the
+discrete setting, and even so, we still refer to $\sF$ as a class of
+densities, and $f$ as a density itself. Plainly, in this case,
+$X \sim f$ signifies that
+\[
+  \Pr\{X \in A\} = \sum_{x \in A} f(x) , \qquad \text{for each $A \in \sP(\sX)$.}
+\]
+
+Let $f \in \sF$ be unknown. Given the $n$ samples
+$X_1, \dots, X_n \iid f$, our goal is to create a \emph{density
+  estimate}
+\[
+  \hat{f}_n \colon \sX^n \to \R^\sX ,
+\]
+such that the probability measures corresponding to $f$ and
+$\hat{f}_n(X_1, \dots, X_n)$ are close in \emph{total variation (TV)
+  distance}, where for any probability measures $\mu, \nu$, their
+TV-distance is defined as
+\begin{equation}
+  \TV(\mu, \nu) = \sup_{A \in \Sigma} |\mu(A) - \nu(A)| . \eqlabel{prob-interp}
+\end{equation}
+%To abuse notation, for any set $A \in \Sigma$ we will write
+%\begin{align*}
+%  &f(A) = \int_A f(x) \dif x && \text{ in the continuous case, and} \\
+%  &f(A) = \sum_{x \in A} f(x) && \text{ in the discrete case.}
+%\end{align*}
+The TV-distance has several equivalent definitions; importantly, if
+$\mu$ and $\nu$ are probability measures with corresponding densities
+$f$ and $g$, then
+\begin{align}
+  \TV(\mu, \nu) &= \|f - g\|_1/2 , \eqlabel{l1-interp} \\
+                &= \inf_{(X, Y) \colon X \sim f, Y \sim g} \Pr\{X \neq Y\} , \eqlabel{coupling-interp}
+\end{align}
+where for any function $h \colon \sX \to \R$, we define the $L_1$-norm
+of $h$ as
+\[
+  \|h\|_1 = \sum_{x \in \sX} |h(x)| .
+\]
+(In the continuous case, this sum is simply replaced with an
+integral.) In view of the relation between TV-distance and $L_1$-norm
+in \eqref{l1-interp}, we will abuse notation and write
+\[
+  \TV(f, g) = \|f - g\|_1/2 .
+\]
+%If $\sA \subseteq \sP(\sX)$, we define the
+%\emph{TV\textsubscript{$\sA$}-distance} between functions $f, g$ as
+%\[
+%  \TV_\sA(f, g) = \sup_{A \in \sA} \left| \sum_{x \in A} f(x) - \sum_{x \in A} g(x)  \right| ,
+%\]
+%so clearly $\TV_{\sP(\sX)}(f, g) = \TV(f, g)$.
+
+There are various possible measures of dissimilarity between
+probability distributions which can be considered in density
+estimation, \eg the Hellinger distance, Wasserstein distance,
+$L_p$-distance, $\chi^2$-divergence, Kullback-Leibler divergence, or
+any number of other divergences; see Sason and Verd\'{u}~\cite{verdu}
+for a survey on many such functions and the relations between
+them. Here, we focus on the TV-distance due to its several appealing
+properties, such as being a metric, enjoying the natural probabilistic
+interpretation of \eqref{prob-interp}, and having the coupling
+characterization \eqref{coupling-interp}.
+
+If $\hat{f}_n$ is a density estimate, we define the \emph{risk} of the
+estimator $\hat{f}_n$ with respect to the class $\sF$ as
+\[
+  \sR_n(\hat{f}_n, \sF) = \sup_{f \in \sF} \E\bigl\{\TV(\hat{f}_n(X_1, \dots, X_n), f)\bigr\} ,
+\]
+where the expectation is over the $n$ i.i.d.\ samples from $f$, and
+possible randomization of the estimator. From now on we will omit the
+dependence of $\hat{f}_n$ on $X_1, \dots, X_n$ unless it is not
+obvious. The \emph{minimax risk} or \emph{minimax rate} for $\sF$ is
+the smallest risk over all possible density estimates,
+\[
+  \sR_n(\sF) = \inf_{\hat{f}_n} \sR_n(\hat{f}_n, \sF) .
+\]
+
+We can now state our results precisely. Let $k \in \N$ and let $\sF_k$
+be the class of non-increasing densities on $\{1, \dots, k\}$, \ie set
+of of all probability vectors $f \colon \{1, \dots, k\} \to \R$ for
+which
+\begin{equation}
+  f(x + 1) \le f(x) , \qquad \text{for all $x \in \{1, \dots, k - 1\}$.} \eqlabel{decr}
+\end{equation}
+\begin{thm}\thmlabel{monotone-result}
+  Let $f \colon \N \times \N \to \R$ be
+  \[
+    f(n, k) = \left\{
+      \begin{array}{ll}
+        \sqrt{k/n} & \mbox{if $2 \le k < 2 n^{1/3}$,} \\
+        {\left( \frac{\log_2 (k/n^{1/3})}{n} \right)}^{1/3} & \mbox{if $2 n^{1/3} \le k < n^{1/3} 2^n$,} \\
+        1 & \mbox{if $n^{1/3} 2^n \le k$.}
+      \end{array} \right.
+  \]
+  There is a universal constant $C \ge 1$ such that, for sufficiently
+  large $n$ not depending on $k$,
+  \[
+    \frac{1}{C} \le \frac{\sR_n(\sF_k)}{f(n, k)} \le C .
+  \]
+\end{thm}
+Let $\sG_k$ be the class of all non-increasing convex densities on
+$\{1, \dots, k\}$, so each $f \in \sG_k$ satisfies \eqref{decr} and
+\[
+  f(x) - 2 f(x + 1) + f(x + 2) \ge 0 , \qquad \text{for all $x \in \{1, \dots, k - 2\}$.} 
+\]
+\begin{thm}\thmlabel{convex-result}
+  Let $g \colon \N \times \N \to \R$ be
+  \[
+    g(n, k) = \left\{
+      \begin{array}{ll}
+        \sqrt{k/n} & \mbox{if $2 \le k < 3 n^{1/5}$ ,} \\
+        {\left(\frac{\log_3 (k/n^{1/5})}{n}\right)}^{2/5} & \mbox{if $3 n^{1/5} \le k < n^{1/5} 3^n$,} \\
+        1 & \mbox{if $n^{1/5} 3^n \le k$.}
+      \end{array} \right.
+  \]
+  There is a universal constant $C \ge 1$ such that, for sufficiently
+  large $n$ not depending on $k$,
+  \[
+    \frac{1}{C} \le \frac{\sR_n(\sG_k)}{g(n, k)} \le C .
+  \]
+\end{thm}
+We emphasize here that the above results give upper and lower bounds
+on the minimax rates $\sR_n(\sF_k)$ and $\sR_n(\sG_k)$ which are
+within universal constant factors of one another, for the entire range
+of $k$.
+
+Our upper bounds will crucially rely on the next results, which allow
+us to relate the minimax rate of a class to an old and well-studied
+combinatorial quantity called the \emph{Vapnik-Chervonenkis (VC)
+  dimension}~\cite{vc}: For $\sA \subseteq \sP(\sX)$ a family of
+subsets of $\sX$, the VC-dimension of $\sA$, denoted by $\VC(\sA)$, is
+the size of the largest set $X \subseteq \sX$ such that for every
+$Y \subseteq X$, there exists $B \in \sA$ such that $X \cap B =
+Y$. See, \eg the book of Devroye and Lugosi~\cite{comb-methods} for
+examples and applications of the VC-dimension in the study of density
+estimation.
+
+\begin{thm}[Devroye, Lugosi~\cite{comb-methods}]\thmlabel{minimum-distance-risk}
+  Let $\sF$ be a class of densities supported on $\sX$, and let
+  $\sF_\Theta = \{f_{n, \theta} \colon \theta \in \Theta\}$ be a class
+  of density estimates satisfying
+  $\sum_{x \in \sX} f_{n, \theta}(x) = 1$ for every
+  $\theta \in \Theta$. Let $\sA_\Theta$ be the \emph{Yatracos class}
+  of $\sF_\Theta$,
+  \[
+    \sA_\Theta = \Big\{ \{ x \in \sX \colon f_{n, \theta}(x) > f_{n, \theta'}(x)\} \colon \theta \neq \theta' \in \Theta \Big\} .
+  \]
+  For $f \in \sF$, let $\mu$ be the probability measure corresponding
+  to $f$. Let also $\mu_n$ be the empirical measure based on
+  $X_1, \dots, X_n \iid f$, where
+  \[
+    \mu_n(A) = \frac{1}{n} \sum_{i = 1}^n \mathbf{1}\{X_i \in A\} ,
+    \qquad \text{for $A \in \sA_\Theta$}.
+  \]
+  Then, there is an estimate $\psi_n$ for which
+  \[
+    \TV(\psi_n, f) \le 3 \inf_{\theta \in \Theta} \TV(f_{n, \theta}, f) + 2 \sup_{A \in \sA_\Theta} |\mu_n(A) - \mu(A)| +
+    \frac{3}{2 n} .
+  \]
+\end{thm}
+
+The estimate $\psi_n$ in \thmref{minimum-distance-risk} is called the
+\emph{minimum distance estimate} in \cite{comb-methods}---we omit the
+details of its construction, though we emphasize that if computing
+$\int_A f_{n, \theta}$ takes one unit of computation for any $\theta$
+and $A$, then selecting $\psi_n$ takes time polynomial in the size of
+$\sA$, which is often exponential in the quantities of interest; for
+instance, if $\sA$ is the Yatracos class of $\sF_k$, then a simple
+construction shows that $\sA$ contains all subsets of
+$\{1, \dots, 2 \floor{k/2} \}$ containing only odd numbers, whence
+\[
+  2^{\floor{k/2}} \le |\sA| \le 2^k ,
+\]
+where the upper bound is trivial.
+
+\begin{thm}[Devroye, Lugosi~\cite{comb-methods}]\thmlabel{tv-emp}
+  Let $\sF, \sX, f, \mu, \mu_n$ be as in
+  \thmref{minimum-distance-risk}, and let $\sA \subseteq
+  \sP(\sX)$. Then, there is a universal constant $c > 0$ for which
+  \[
+    \sup_{f \in \sF} \E\left\{ \sup_{A \in \sA} |\mu_n(A) - \mu(A)| \right\} \le c \sqrt{\frac{\VC(\sA)}{n}} .
+  \]
+\end{thm}
+
+\begin{rem}
+  The quantity $\sup_{A \in \sA} |\mu(A) - \nu(A)|$ in \thmref{tv-emp}
+  is precisely equal to $\TV(\mu, \nu)$ if $\sA$ is the Borel
+  $\sigma$-algebra on $\sX$.
+\end{rem}
+
+\begin{corr}\corrlabel{minimum-distance-risk}
+  Let $\sF, \sA_\Theta, f_{n, \theta}, f, \mu, \mu_n$ be as in
+  \thmref{minimum-distance-risk}. Then, there is a universal constant
+  $c > 0$ for which
+  \[
+    \sR_n(\sF) \le 3 \sup_{f \in \sF} \inf_{\theta \in \Theta} \TV(f_{n, \theta}, f) + c \sqrt{\frac{\VC(\sA_\Theta)}{n}} + \frac{3}{2n} .
+  \]
+\end{corr}

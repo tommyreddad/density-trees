@@ -1,0 +1,82 @@
+\section{Introduction}
+
+\emph{Density estimation} or \emph{distribution learning} refers to
+the problem of estimating the unknown probability density function of
+a common source of independent sample observations. In any interesting
+case, we know that the unknown source density may come from a known
+class. In the \emph{parametric} case, each density in this class can
+be specified using a bounded number of real parameters, \eg the class
+of all Gaussian densities with any mean and any variance. The
+remaining cases are called \emph{nonparametric}. Examples of
+nonparametric classes include bounded monotone densities on $[0, 1]$,
+$L$-Lipschitz densities for a given constant $L > 0$, and log-concave
+densities, to name a few. By \emph{minimax estimation}, we mean
+density estimation in the minimax sense, \ie we are interested in the
+existence of a density estimate which minimizes its approximation
+error, even in the worst case.
+
+There is a long line of work in the statistics literature about
+density estimation, and a growing interest coming from the theoretical
+computer science and machine learning communities; for a selection of
+new and old books on this topic, see \cite{devroye-course,
+  devroye-gyorfi, comb-methods, groeneboom-book, scott,
+  silverman}. The study of nonparametric density estimation began as
+early as in the 1950's, when Grenander~\cite{grenander} described and
+studied properties of the maximum likelihood estimate of an unknown
+density taken from the class of bounded monotone densities on
+$[0, 1]$. Grenander's estimator and this class received much further
+treatment over the years, in particular by Prakasa Rao~\cite{prakasa},
+Groeneboom~\cite{groeneboom}, and Birg\'e~\cite{birge-order,
+  birge-risk, birge}, who identified the optimal $L_1$-error minimax
+rate up to a constant factor, and also gave an efficient adaptive
+estimator which worked even when the boundedness parameter was
+unknown. Since then, countless more nonparametric classes have been
+studied, and many different all-purpose methods have been developed to
+obtain minimax results about these classes: for the construction of
+density estimates, see \eg the maximum likelihood estimate, skeleton
+estimates, kernel estimates, and wavelet estimates, to name a few; and
+for minimax rate lower bounds, see \eg the methods of Assouad, Fano,
+and Le Cam~\cite{devroye-course, devroye-gyorfi, comb-methods,
+  yu-survey}. See \cite{bellec, chat, gao, gunt} for recent related
+works in nonparametric shape-constrained regression.
+
+One very popular style of density estimate is the \emph{histogram}, in
+which the support of the random data is partitioned into bins, where
+each bin receives a weight proportional to the number of data points
+contained within, and such that the estimate is constant with the
+given weight along each bin. Then, the selection of the bins
+themselves becomes critical in the construction of a good histogram
+estimate. Birg\'e~\cite{birge-risk} showed how histograms with
+carefully chosen exponentially increasing bin sizes will have
+$L_1$-error within a constant factor of the optimal minimax rate for
+the class of bounded non-increasing densities on $[0, 1]$. In general,
+the right choice of an underlying partition for a histogram estimate
+is not obvious.
+
+In this work, we devise a recursive data-based approach for
+determining the partition of the support for a histogram estimate of
+discrete non-increasing densities. We also use a similar approach to
+build a piecewise-linear estimator for discrete non-increasing convex
+densities---see Anevski~\cite{anevski},
+Jongbloed~\cite{jongbloed-thesis}, and Groeneboom, Jongbloed, and
+Wellner~\cite{groeneboom-convex} for works concerning the maximum
+likelihood and minimax estimation of continuous non-increasing convex
+densities. Both of our estimators are \emph{minimax-optimal}, \ie
+their minimax $L_1$-error is within a constant factor of the optimal
+rate. Recursive data-based partitioning schemes have been extremely
+popular in density estimation since the 1970's with
+Gessaman~\cite{gessaman}, Chen and Zhao~\cite{chen}, Lugosi and
+Nobel~\cite{lugosi-nobel}, and countless others, with great interest
+coming from the machine learning and pattern recognition
+communities~\cite{pattern}. Still, it seems that most of the
+literature involving recursive data-based partitions are not
+especially concerned with the rate of convergence of density
+estimates, but rather other properties such as consistency under
+different recursive schemes. Moreover, most of the density estimation
+literature is concerned with the estimation of continuous probability
+distributions. In discrete density estimation, not all of the
+constructions or methods used to develop arguments for analogous
+continuous classes will neatly apply, and in some cases, there are
+discrete phenomena that call for a different approach. See Jankowski
+and Wellner~\cite{jank} for a recent treatment on the properties of a
+variety of estimators of discrete non-increasing densities.

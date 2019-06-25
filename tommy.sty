@@ -1,0 +1,136 @@
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{enumitem}
+
+\usepackage{mathtools}
+
+%%%
+% Keep all graphics in the figures/ directory
+%%%
+\usepackage{graphicx}
+\graphicspath{ {./figures/} }
+
+\newcommand{\sP}{\mathcal{P}}
+\newcommand{\sG}{\mathcal{G}}
+\newcommand{\sI}{\mathcal{I}}
+\newcommand{\sX}{\mathcal{X}}
+\newcommand{\sF}{\mathcal{F}}
+\newcommand{\sR}{\mathcal{R}}
+\newcommand{\sA}{\mathcal{A}}
+\newcommand{\sH}{\mathcal{H}}
+\newcommand{\sB}{\mathcal{B}}
+\newcommand{\ceil}[1]{{\lceil #1 \rceil}}
+\newcommand{\Ceil}[1]{{\left\lceil #1 \right\rceil}}
+\newcommand{\floor}[1]{{\lfloor #1 \rfloor}}
+\newcommand{\Floor}[1]{{\left\lfloor #1 \right\rfloor}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\DeclareMathOperator{\E}{\mathbf{E}}
+\newcommand*{\from}{\colon}
+\newcommand{\eps}{\varepsilon}
+
+\let\Pr\relax
+\DeclareMathOperator{\Pr}{\mathbf{P}}
+\newcommand{\V}{\mathbf{V}}
+\DeclareMathOperator{\TV}{TV}
+\DeclareMathOperator{\Bin}{Binomial}
+\DeclareMathOperator{\VC}{VC}
+
+%%%
+% A wide tilde for use with \iid
+\newcommand{\widesim}[2][1.5]{
+  \mathrel{\overset{#2}{\scalebox{#1}[1]{$\sim$}}}
+}
+\newcommand{\iid}{\mathbin{\widesim[2]{i.i.d.}}}
+%%%
+
+%%%
+% Better parentheses
+\let\originalleft\left
+\let\originalright\right
+\def\left#1{\mathopen{}\originalleft#1}
+\def\right#1{\originalright#1\mathclose{}}
+%%%
+
+%%%
+% Upright differential operator
+\newcommand{\dif}{\mathop{}\!\mathrm{d}}
+%%%
+
+%%%
+% Proper spacing and punctuation following abbreviations
+\usepackage{xspace}
+\newcommand*{\ie}{i.e.,\@\xspace}
+\newcommand*{\eg}{e.g.,\@\xspace}
+\makeatletter
+\newcommand*{\etal}{
+	\@ifnextchar{.}
+    {et al}
+    {et al.\@\xspace}
+}
+\makeatother
+
+\newcommand{\seclabel}[1]{\label{sec:#1}}
+\newcommand{\Secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\secref}[1]{\mbox{Section~\ref{sec:#1}}}
+
+\newcommand{\applabel}[1]{\label{app:#1}}
+\newcommand{\Appref}[1]{Appendix~\ref{app:#1}}
+\newcommand{\appref}[1]{\mbox{Appendix~\ref{app:#1}}}
+
+\newcommand{\figlabel}[1]{\label{fig:#1}}
+\newcommand{\Figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\figref}[1]{\mbox{Figure~\ref{fig:#1}}}
+
+\newcommand{\eqlabel}[1]{\label{eq:#1}}
+\renewcommand{\eqref}[1]{(\ref{eq:#1})}
+\newcommand{\myeqref}[1]{(\ref{eq:#1})}
+\newcommand{\Eqref}[1]{Equation~(\ref{eq:#1})}
+
+\newtheorem{thm}{Theorem}{\bfseries}{\itshape}
+\newcommand{\thmlabel}[1]{\label{thm:#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{thm:#1}}
+\numberwithin{thm}{section}
+
+\newtheorem{lem}[thm]{Lemma}{\bfseries}{\itshape}
+\newcommand{\lemlabel}[1]{\label{lem:#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{lem:#1}}
+
+\newtheorem{corr}[thm]{Corollary}{\bfseries}{\itshape}
+\newcommand{\corrlabel}[1]{\label{cor:#1}}
+\newcommand{\corrref}[1]{Corollary~\ref{cor:#1}}
+
+\newtheorem{prop}[thm]{Proposition}{\bfseries}{\itshape}
+\newcommand{\proplabel}[1]{\label{prop:#1}}
+\newcommand{\propref}[1]{Proposition~\ref{prop:#1}}
+
+\newtheorem{conj}[thm]{Conjecture}{\bfseries}{\itshape}
+\newcommand{\conjlabel}[1]{\label{conj:#1}}
+\newcommand{\conjref}[1]{Conjecture~\ref{conj:#1}}
+
+\theoremstyle{definition}
+
+\newtheorem{defn}[thm]{Definition}
+\newcommand{\defnlabel}[1]{\label{defn:#1}}
+\newcommand{\defnref}[1]{Definition~\ref{defn:#1}}
+
+\newtheorem{rem}[thm]{Remark}
+\newcommand{\remlabel}[1]{\label{rem:#1}}
+\newcommand{\remref}[1]{Remark~\ref{rem:#1}}
+
+\theoremstyle{plain}
+
+% imart class seems to struggle with hyperref, so unfortunately we don't include it
+%\usepackage{hyperref}
+%\usepackage[dvipsnames]{xcolor}
+%\definecolor{linkblue}{named}{Blue}
+%\hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
+%citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,
+%urlcolor=linkblue} 
+
+\usepackage{hyphenat}
