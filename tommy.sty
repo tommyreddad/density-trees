@@ -1,13 +1,8 @@
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amsthm}
-\usepackage{amssymb}
-
-\usepackage{microtype}
-\usepackage{verbatim}
+\usepackage{amsmath, amsthm}
+\usepackage[psamsfonts]{amssymb}
+\usepackage[numbers]{natbib}
+\usepackage{hyperref}
 \usepackage{enumitem}
-
-\usepackage{mathtools}
 
 %%%
 % Keep all graphics in the figures/ directory
@@ -36,7 +31,6 @@
 
 \let\Pr\relax
 \DeclareMathOperator{\Pr}{\mathbf{P}}
-\newcommand{\V}{\mathbf{V}}
 \DeclareMathOperator{\TV}{TV}
 \DeclareMathOperator{\Bin}{Binomial}
 \DeclareMathOperator{\VC}{VC}
@@ -91,6 +85,7 @@
 \renewcommand{\eqref}[1]{(\ref{eq:#1})}
 \newcommand{\myeqref}[1]{(\ref{eq:#1})}
 \newcommand{\Eqref}[1]{Equation~(\ref{eq:#1})}
+\numberwithin{equation}{section}
 
 \newtheorem{thm}{Theorem}{\bfseries}{\itshape}
 \newcommand{\thmlabel}[1]{\label{thm:#1}}
@@ -124,13 +119,3 @@
 \newcommand{\remref}[1]{Remark~\ref{rem:#1}}
 
 \theoremstyle{plain}
-
-% imart class seems to struggle with hyperref, so unfortunately we don't include it
-%\usepackage{hyperref}
-%\usepackage[dvipsnames]{xcolor}
-%\definecolor{linkblue}{named}{Blue}
-%\hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
-%citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,
-%urlcolor=linkblue} 
-
-\usepackage{hyphenat}
